@@ -186,16 +186,3 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
     $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
   fi
 )
-
-# Post package.json to nomnom service
-# Use a subshell so failures won't break the build.
-(
-  curl \
-    --data @$build_dir/package.json \
-    --fail \
-    --silent \
-    --request POST \
-    --header "content-type: application/json" \
-    https://nomnom.heroku.com/?request_id=$REQUEST_ID \
-    > /dev/null
-) &
